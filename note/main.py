@@ -7,7 +7,7 @@ app = FastAPI()
 class Note(BaseModel):
     title: str
     body: str
-    completed
+    completed: bool
 
 @app.post('/api/v1/create')
 async def create_note(note: Note):
