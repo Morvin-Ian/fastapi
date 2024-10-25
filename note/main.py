@@ -1,14 +1,10 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from . import schemas
 
 
 app = FastAPI()
 
-class Note(BaseModel):
-    title: str
-    body: str
-    completed: bool
 
 @app.post('/api/v1/create')
-async def create_note(note: Note):
+async def create_note(note: schemas.Note):
     return {"message": "Note created successfully"}
