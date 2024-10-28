@@ -10,14 +10,13 @@ class Note(BaseModel):
     title: str
     description: str
 
-
 class UserResponse(BaseModel):
     name: str
     email: str
+    notes: List[Note]
 
     class Config():
         orm_mode = True
-
 
 class NoteResponse(Note):
     created_by: UserResponse
