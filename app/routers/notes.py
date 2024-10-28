@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, status, HTTPException
-from .. import schemas, models
-from ..database import get_db
 from typing import List
 from sqlalchemy.orm import Session
+
 from ..repositories import notes
+from .. import schemas, oauth
+from ..database import get_db
 
 
 router = APIRouter(
@@ -12,7 +13,7 @@ router = APIRouter(
 )
 
 @router.get('/', status_code = status.HTTP_200_OK,  response_model = List[schemas.NoteResponse])
-def fetch_notes(db:Session = Depends(get_db)):
+def fetch_notes(db:Session = Depends(get_db), get_current_user:schemas.User = Depends(oauth.get_current_user)):
     return notes.get_all(db)
 
 @router.get('/{note_id}', status_code = status.HTTP_200_OK,  response_model = schemas.NoteResponse)

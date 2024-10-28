@@ -24,3 +24,13 @@ class NoteResponse(Note):
     class Config():
         orm_mode = True
     
+class LoginRequest(BaseModel):
+    username:str
+    password:str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    email: str | None = None
